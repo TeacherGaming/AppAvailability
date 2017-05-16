@@ -10,9 +10,9 @@ import android.content.pm.PackageManager;
 
 public class AppAvailability extends CordovaPlugin {
     @Override
-    public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
+    public boolean execute(final String action, final JSONArray args, final CallbackContext callbackContext) throws JSONException {
         if(action.equals("checkAvailability")) {
-            AppAvailability classInstance = this;
+            final AppAvailability classInstance = this;
             // Run in thread
             cordova.getThreadPool().execute(new Runnable() {
                 public void run() {
