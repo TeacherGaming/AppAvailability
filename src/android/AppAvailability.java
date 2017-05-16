@@ -21,7 +21,7 @@ public class AppAvailability extends CordovaPlugin {
                         classInstance.checkAvailability(uri, callbackContext);
                         callbackContext.success(); // Thread-safe.
                     }
-                    catch (JSONException e) { 
+                    catch (Exception e) { 
                         e.printStackTrace();
                         callbackContext.error(""); // Thread-safe.
                     }
