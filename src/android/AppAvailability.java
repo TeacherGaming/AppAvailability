@@ -12,9 +12,14 @@ public class AppAvailability extends CordovaPlugin {
     @Override
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
         if(action.equals("checkAvailability")) {
-            String uri = args.getString(0);
-            this.checkAvailability(uri, callbackContext);
-            return true;
+            // Run in thread
+            cordova.getThreadPool().execute(new Runnable() {
+                public void run() {
+                    String uri = args.getString(0);
+                    this.checkAvailability(uri, callbackContext);
+                    callbackContext.success(); // Thread-safe.
+                }
+            });
         }
         return false;
     }
