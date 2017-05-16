@@ -21,12 +21,10 @@ public class AppAvailability extends CordovaPlugin {
                         try {
                             classInstance.checkAvailability(uri, callbackContext);
                             callbackContext.success(); // Thread-safe.
-                            return true;
                         }
                         catch (Exception e) { 
                             e.printStackTrace();
                             callbackContext.error(""); // Thread-safe.
-                            return false;
                         }
                     }
                 });
