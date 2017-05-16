@@ -11,23 +11,32 @@ import android.content.pm.PackageManager;
 public class AppAvailability extends CordovaPlugin {
     @Override
     public boolean execute(final String action, final JSONArray args, final CallbackContext callbackContext) throws JSONException {
-        if(action.equals("checkAvailability")) {
-            final AppAvailability classInstance = this;
-            // Run in thread
-            cordova.getThreadPool().execute(new Runnable() {
-                public void run() {
-                    String uri = args.getString(0);
-                    try {
-                        classInstance.checkAvailability(uri, callbackContext);
-                        callbackContext.success(); // Thread-safe.
+        try {
+            if(action.equals("checkAvailability")) {
+                final AppAvailability classInstance = this;
+                // Run in thread
+                cordova.getThreadPool().execute(new Runnable() {
+                    public void run() {
+                        String uri = args.getString(0);
+                        try {
+                            classInstance.checkAvailability(uri, callbackContext);
+                            callbackContext.success(); // Thread-safe.
+                            return true;
+                        }
+                        catch (Exception e) { 
+                            e.printStackTrace();
+                            callbackContext.error(""); // Thread-safe.
+                            return false;
+                        }
                     }
-                    catch (Exception e) { 
-                        e.printStackTrace();
-                        callbackContext.error(""); // Thread-safe.
-                    }
-                }
-            });
+                });
+            }
         }
+        catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+        return false;
     }
     
     // Thanks to http://floresosvaldo.com/android-cordova-plugin-checking-if-an-app-exists
