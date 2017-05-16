@@ -17,8 +17,8 @@ public class AppAvailability extends CordovaPlugin {
                 // Run in thread
                 cordova.getThreadPool().execute(new Runnable() {
                     public void run() {
-                        String uri = args.getString(0);
                         try {
+                            String uri = args.getString(0);
                             classInstance.checkAvailability(uri, callbackContext);
                             callbackContext.success(); // Thread-safe.
                         }
