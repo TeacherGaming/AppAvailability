@@ -23,7 +23,7 @@ public class AppAvailability extends CordovaPlugin {
                     }
                     catch (JSONException e) { 
                         e.printStackTrace();
-                        callbackContext.error(); // Thread-safe.
+                        callbackContext.error(""); // Thread-safe.
                     }
                 }
             });
